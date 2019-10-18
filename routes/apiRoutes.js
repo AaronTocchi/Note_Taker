@@ -43,16 +43,18 @@ module.exports = function(app) {
   // ---------------------------------------------------------------------------
  
  
+                // HANNA HERE PLS HELP :'(
  
- 
-    //STUCK HERE, PLEASE HELP HANNA
  
   app.post("/api/notes", function(req, res) {
     var newTable = req.body;
-    fs.writeFile('./db/db.json', "utf8") // i dont think this works but try it out
-    res.json(newTable)
-    console.log(newTable)
-
+    let datas = JSON.stringify(newTable)
+    fs.appendFile('./db/db.json', datas, (err) => {
+        if (err) throw err;
+        console.log("confirms this is workin")
+        res.json(true)
+    }) // i dont think this works but try it out
+     
      })
     
     //  var tableData = require("../data/tableData"); TODO figure out how to connect to push
