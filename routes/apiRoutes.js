@@ -47,18 +47,26 @@ module.exports = function(app) {
  
  
   app.post("/api/notes", function(req, res) {
-    var newTable = req.body;
-    let datas = JSON.stringify(newTable)
+    var newNote = req.body;
+    let datas = JSON.stringify(newNote)
+    
+    // fs.readFile('./db/db.json', function (err, data) {
+    //     var json = JSON.parse(data)
+    //     if (err) throw err;
+    //     json.push(datas);
+    
+    //     fs.writeFile("./db/db.json", JSON.stringify(json))
+  
+    
     fs.appendFile('./db/db.json', datas, (err) => {
         if (err) throw err;
         console.log("confirms this is workin")
         res.json(true)
-    }) // i dont think this works but try it out
+    // }) // i dont think this works but try it out
      
      })
-    
+      })
     //  var tableData = require("../data/tableData"); TODO figure out how to connect to push
-
 
 
   // ---------------------------------------------------------------------------
