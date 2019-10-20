@@ -1,6 +1,6 @@
 var $noteTitle = $(".note-title");
 var $noteText = $(".note-textarea");
-var $saveNoteBtn = $(".save-note");
+var $saveNoteBtn = $("#save-note");
 var $newNoteBtn = $(".new-note");
 var $noteList = $(".list-container .list-group");
 
@@ -14,24 +14,24 @@ var getNotes = function() {
 
 // A function for saving a note to the db
 var saveNote = function(note) {
-    // event.preventDefault();
-    // var newReservation = {
+    event.preventDefault();
+    var newReservation = {
       
-    //   title: $("#note-title").val(),
-    //    text: $( "#note-textarea").val()
-    // }
-    // $.post("/api/notes", newReservation,
-    //   function (note) {
+      title: $(".note-title").val(),
+       text: $( ".note-textarea").val()
+    }
+    $.post("/api/notes", newReservation,
+      function (note) {
 
-    //   // If a table is available... tell user they are booked.
-    //   // If a table is unavailable... tell user they on the waiting list.
-    //     if (note) {
-    //       alert("Your table is booked")
-    //     }
+      // If a table is available... tell user they are booked.
+      // If a table is unavailable... tell user they on the waiting list.
+        if (note) {
+          alert("Your table is booked")
+        }
       
-    //   // Clear the form when submitting
+      // Clear the form when submitting
     //   document.getElementsByTagName('note')[0].reset();
-    // });
+    });
 };
 
 // A function for deleting a note from the db
@@ -46,7 +46,8 @@ var renderActiveNote = function() {
 
 // Get the note data from the inputs, save it to the db and update the view
 var handleNoteSave = function() {
-//   saveNote();
+    console.log("booop")
+    saveNote();
 };
 
 // Delete the clicked note
