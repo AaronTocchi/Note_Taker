@@ -74,20 +74,7 @@ var handleRenderSaveBtn = function() {
 
 // Render's the list of note titles
 var renderNoteList = function(notes) {
-    $.get("/api/notes", function (data) {
-        if (data) {
-          for (i = 1; i < data.length; i++) {
-            let table = $("<li>").attr({ "class": "list-group-item mt-4", "id": "table" + i });
-            
-            // let tableNum = $("<h2>").text("Table #" + i);
-            let hr = $("<hr>");
-            let id = $("<h2>").text("ID: "+ data[i].title);
-            let name = $("<h2>").text("Name: " + data[i].text);
-            table.append(hr,id,name);
-            $(".list-items").append(table);
-          }
-        }
-      })
+    // getAndRenderNotes();
     
 };
 
@@ -96,13 +83,13 @@ var getAndRenderNotes = function() {
     $.get("/api/notes", function (data) {
         if (data) {
           for (i = 0; i < data.length; i++) {
-            let table = $("<li>").attr({ "class": "list-group-item mt-4", "id": "table" + i });
+            let table = $("<li>").attr({ "class": "list-group-item", "id": "note" + i });
             
             // let tableNum = $("<h2>").text("Table #" + i);
-            let hr = $("<hr>");
-            let id = $("<h2>").text("ID: "+ data[i].title);
-            let name = $("<h2>").text("Name: " + data[i].text);
-            table.append(hr,id,name);
+            let title = $("<h4>").attr({ "class": "list-group-item:first-child"}).text(data[i].title + " ");
+            let deleteIcon = $("<i>").attr({"class": "fas fa-trash"});
+            title.append(deleteIcon);
+            table.append(title);
             $(".list-items").append(table);
           }
         }
