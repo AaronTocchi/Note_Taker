@@ -15,22 +15,22 @@ var getNotes = function() {
 // A function for saving a note to the db
 var saveNote = function(note) {
     event.preventDefault();
-    var newReservation = {
+    var newNote = {
       
       title: $(".note-title").val(),
        text: $( ".note-textarea").val()
     }
-    $.post("/api/notes", newReservation,
+    $.post("/api/notes", newNote,
       function (note) {
 
       // If a table is available... tell user they are booked.
       // If a table is unavailable... tell user they on the waiting list.
         if (note) {
-          alert("Your table is booked")
+          alert("Great Plan!")
         }
       
       // Clear the form when submitting
-    //   document.getElementsByTagName('note')[0].reset();
+      document.getElementsByTagName('form')[0].reset();
     });
 };
 
