@@ -15,7 +15,12 @@ html, body {
   cursor: pointer;
 }
 
+.note-container {
+  padding-left: 15px;
+}
+
 .note-textarea, .note-title {
+  justify-content: flex-end;
   color: #000000;
   width: 100%;
   outline: none;
