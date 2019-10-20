@@ -1,7 +1,7 @@
 var $noteTitle = $(".note-title");
 var $noteText = $(".note-textarea");
 var $saveNoteBtn = $("#save-note");
-var $newNoteBtn = $(".new-note");
+var $newNoteBtn = $("#new-note");
 var $noteList = $(".list-container .list-group");
 
 // activeNote is used to keep track of the note in the textarea
@@ -56,6 +56,7 @@ var handleNoteSave = function() {
     };
 
     saveNote(activeNote);
+    $('.fa-save').attr('style', 'display:none');
 };
 
 // Delete the clicked note
@@ -70,13 +71,20 @@ var handleNoteView = function() {
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
 var handleNewNoteView = function() {
-  
+   console.log("goodbye");
+    activeNote = {};
+    renderActiveNote();
+    $('.fa-save').attr('style', 'display:none');
 };
 
 // If a note's title or text are empty, hide the save button
 // Or else show it
 var handleRenderSaveBtn = function() {
-  
+    if ($noteTitle.val() === '' || $noteText.val() === '') {
+        $('.fa-save').attr('style', 'display:none');
+    } else {
+        $('.fa-save').attr('style', 'display:inline-block');
+    };
 };
 
 // Render's the list of note titles
@@ -91,7 +99,7 @@ var renderNoteList = function(note) {
 
 // Gets notes from the db and renders them to the sidebar
 var getAndRenderNotes = function() {
-    
+    // using map as to not double print array each time 
     $.get('/api/notes', function(data) {
      data.map(note => renderNoteList(note));
     });
