@@ -14,7 +14,24 @@ var getNotes = function() {
 
 // A function for saving a note to the db
 var saveNote = function(note) {
-  
+    // event.preventDefault();
+    // var newReservation = {
+      
+    //   title: $("#note-title").val(),
+    //    text: $( "#note-textarea").val()
+    // }
+    // $.post("/api/notes", newReservation,
+    //   function (note) {
+
+    //   // If a table is available... tell user they are booked.
+    //   // If a table is unavailable... tell user they on the waiting list.
+    //     if (note) {
+    //       alert("Your table is booked")
+    //     }
+      
+    //   // Clear the form when submitting
+    //   document.getElementsByTagName('note')[0].reset();
+    // });
 };
 
 // A function for deleting a note from the db
@@ -29,7 +46,7 @@ var renderActiveNote = function() {
 
 // Get the note data from the inputs, save it to the db and update the view
 var handleNoteSave = function() {
-  
+//   saveNote();
 };
 
 // Delete the clicked note
@@ -73,3 +90,4 @@ $noteText.on("keyup", handleRenderSaveBtn);
 
 // Gets and renders the initial list of notes
 getAndRenderNotes();
+console.log("hello world")
