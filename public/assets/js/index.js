@@ -15,17 +15,15 @@ var getNotes = function() {
 // A function for saving a note to the db
 var saveNote = function(note) {
     event.preventDefault();
-    var newNote = {
-      
-      title: $(".note-title").val(),
-       text: $( ".note-textarea").val()
-    }
-    $.post("/api/notes", newNote,
-      function (note) {
+   $.post("/api/notes", note,
+      function (data) {
 
       // If a table is available... tell user they are booked.
       // If a table is unavailable... tell user they on the waiting list.
-        if (note) {
+        if (data) {
+            $noteTitle.val('');
+            $noteText.val('');
+          renderNoteList(note);
           alert("Great Plan!")
         }
       
@@ -41,14 +39,23 @@ var deleteNote = function(title) {
 
 // If there is an activeNote, display it, otherwise render empty inputs
 var renderActiveNote = function() {
-  
+    if (activeNote) {
+        $noteTitle.val(activeNote.title);
+        $noteText.val(activeNote.text);
+    }
 };
 
 // Get the note data from the inputs, save it to the db and update the view
 var handleNoteSave = function() {
     console.log("booop")
-    saveNote();
-    renderNoteList();
+    // saveNote();
+    // renderNoteList();
+    activeNote = { 
+        title: $noteTitle.val(), 
+        text: $noteText.val()
+    };
+
+    saveNote(activeNote);
 };
 
 // Delete the clicked note
@@ -73,27 +80,21 @@ var handleRenderSaveBtn = function() {
 };
 
 // Render's the list of note titles
-var renderNoteList = function(notes) {
-    // getAndRenderNotes();
-    
+var renderNoteList = function(note) {
+    let noteItem = $("<li>").attr({ "class": "list-group-item"});
+            let title = $("<h4>").attr({ "class": "list-group-item:first-child"}).text(note.title + " ");
+            let deleteIcon = $("<i>").attr({"class": "fas fa-trash"});
+            title.append(deleteIcon);
+            noteItem.append(title);
+            $(".list-items").prepend(noteItem);
 };
 
 // Gets notes from the db and renders them to the sidebar
 var getAndRenderNotes = function() {
-    $.get("/api/notes", function (data) {
-        if (data) {
-          for (i = 0; i < data.length; i++) {
-            let table = $("<li>").attr({ "class": "list-group-item", "id": "note" + i });
-            
-            // let tableNum = $("<h2>").text("Table #" + i);
-            let title = $("<h4>").attr({ "class": "list-group-item:first-child"}).text(data[i].title + " ");
-            let deleteIcon = $("<i>").attr({"class": "fas fa-trash"});
-            title.append(deleteIcon);
-            table.append(title);
-            $(".list-items").append(table);
-          }
-        }
-      })
+    
+    $.get('/api/notes', function(data) {
+     data.map(note => renderNoteList(note));
+    });
       
 };
 
