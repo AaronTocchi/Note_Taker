@@ -15,14 +15,38 @@ module.exports = function(app) {
         // console.log(noteData)
         res.json(noteData)
     });
-
+    app.get("/api/notes/:title", function(req, res) {
+        console.log(req.params.title);
+        let title = req.params.title 
+        //notes saved in noteData
+        // noteData is an array
+        // noteData contains objects containts properties of title and text
+        // loop over note data array at each index check if title ===
+        // if yes return object at that index
+        // foreach(cv => {
+        //     if (cv === title)
+        //     return req
+        // })
+    
+     let currentNoteData =  noteData.filter(cv => cv.title === title)[0];
+        // console.log('in get')
+        // console.log(noteData)
+        res.json(currentNoteData)
+    });
 
     app.post("/api/notes", function(req, res) {
         var newNote = req.body;
         noteData.push(newNote);
         console.log(noteData);
         res.json(noteData);
-    })
+    });
+
+    app.post("/api/clear", function(req, res) {
+        // Empty out the arrays of data
+        noteData.length = 0;
+    
+        res.json({ ok: true });
+      });
 }
 // // ===============================================================================
 // // LOAD DATA
